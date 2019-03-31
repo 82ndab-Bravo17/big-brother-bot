@@ -610,7 +610,9 @@ class XlrstatsPlugin(b3.plugin.Plugin):
             return s
 
     def get_MapStats(self, name):
-        assert name is not None
+        if name is None or len(name) == 0:
+            name = "UnknownMap"
+        # assert name is not None
         s = MapStats()
         q = """SELECT * from %s WHERE name = '%s' LIMIT 1""" % (self.mapstats_table, name)
         cursor = self.query(q)
